@@ -87,6 +87,11 @@ public:
     juce::Image clearIcon;
     juce::Image wallpaperImage;
 
+    // Custom fonts
+    juce::Font csArthemisFont;      // For titles
+    juce::Font distropiaxFont;       // For sub-headers
+    juce::Font wonderworldFont;      // For regular text
+
 private:
     TurntableMIDIProcessor& audioProcessor;
     HardwareButtonLookAndFeel hardwareLookAndFeel;

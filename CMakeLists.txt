@@ -7,11 +7,14 @@ add_subdirectory(../JUCE ${CMAKE_CURRENT_BINARY_DIR}/JUCE)
 # Create binary data from images
 juce_add_binary_data(TurntableMIDIBinaryData
     SOURCES
-        viking_full.png
-        viking_head.png
-        switch_toggle.png
-        knob_simplegray.png
-        wallpaper.jpg
+        images/viking_full.png
+        images/viking_head.png
+        images/switch_toggle.png
+        images/knob_simplegray.png
+        images/wallpaper.jpg
+        fonts/header.otf
+        fonts/sub-header.otf
+        fonts/paragraph.otf
 )
 
 # Create the plugin target

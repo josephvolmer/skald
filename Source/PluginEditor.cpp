@@ -583,6 +583,22 @@ TurntableMIDIEditor::TurntableMIDIEditor (TurntableMIDIProcessor& p)
     vikingFullImage = juce::ImageCache::getFromMemory(BinaryData::viking_full_png,
                                                        BinaryData::viking_full_pngSize);
 
+    // Load custom fonts
+    auto headerFontData = juce::Typeface::createSystemTypefaceFor(BinaryData::header_otf,
+                                                                   BinaryData::header_otfSize);
+    if (headerFontData)
+        csArthemisFont = juce::Font(juce::FontOptions(headerFontData));
+
+    auto subHeaderFontData = juce::Typeface::createSystemTypefaceFor(BinaryData::subheader_otf,
+                                                                      BinaryData::subheader_otfSize);
+    if (subHeaderFontData)
+        distropiaxFont = juce::Font(juce::FontOptions(subHeaderFontData));
+
+    auto paragraphFontData = juce::Typeface::createSystemTypefaceFor(BinaryData::paragraph_otf,
+                                                                      BinaryData::paragraph_otfSize);
+    if (paragraphFontData)
+        wonderworldFont = juce::Font(juce::FontOptions(paragraphFontData));
+
     // Load wallpaper background texture
     wallpaperImage = juce::ImageCache::getFromMemory(BinaryData::wallpaper_jpg,
                                                       BinaryData::wallpaper_jpgSize);
@@ -1094,22 +1110,31 @@ void TurntableMIDIEditor::paintHelpScreen(juce::Graphics& g)
                          juce::RectanglePlacement::centred | juce::RectanglePlacement::onlyReduceInSize);
     }
 
-    // Title
+    // Title - using header font (larger)
     g.setColour(juce::Colour(0xffE67E22));
-    g.setFont(juce::Font(juce::FontOptions("Arial", 40.0f, juce::Font::bold)));
-    g.drawText("SKALD", 0, 15 + logoHeight, getWidth(), 45,
+    if (csArthemisFont.getTypefaceName().isNotEmpty())
+        g.setFont(juce::Font(juce::FontOptions(csArthemisFont.getTypefacePtr()).withHeight(60.0f)));
+    else
+        g.setFont(juce::Font(juce::FontOptions("Arial", 52.0f, juce::Font::bold)));
+    g.drawText("SKALD", 0, 15 + logoHeight, getWidth(), 55,
                juce::Justification::centred);
 
-    // Subtitle
+    // Subtitle - using Wonderworld font
     g.setColour(juce::Colour(0xff888888));
-    g.setFont(juce::Font(juce::FontOptions("Arial", 16.0f, juce::Font::plain)));
+    if (wonderworldFont.getTypefaceName().isNotEmpty())
+        g.setFont(juce::Font(juce::FontOptions(wonderworldFont.getTypefacePtr()).withHeight(16.0f)));
+    else
+        g.setFont(juce::Font(juce::FontOptions("Arial", 16.0f, juce::Font::plain)));
     g.drawText("Viking MIDI Warrior", 0, 15 + logoHeight + 45, getWidth(), 22,
                juce::Justification::centred);
 
-    // Main description with shoutouts
+    // Main description with shoutouts - using Wonderworld font
     int textY = 15 + logoHeight + 72;
     g.setColour(juce::Colour(0xffcccccc));
-    g.setFont(juce::Font(juce::FontOptions("Arial", 12.0f, juce::Font::plain)));
+    if (wonderworldFont.getTypefaceName().isNotEmpty())
+        g.setFont(juce::Font(juce::FontOptions(wonderworldFont.getTypefacePtr()).withHeight(12.0f)));
+    else
+        g.setFont(juce::Font(juce::FontOptions("Arial", 12.0f, juce::Font::plain)));
 
     juce::String description =
         "Skald is a generative MIDI sequencer inspired by Quintron's Drum Buddy and "
@@ -1125,15 +1150,21 @@ void TurntableMIDIEditor::paintHelpScreen(juce::Graphics& g)
     const int contentWidth = getWidth() - (margin * 2);
     const int centerX = margin;
 
-    // How to Use section
+    // How to Use section - using sub-header font (larger)
     g.setColour(juce::Colour(0xffE67E22));
-    g.setFont(juce::Font(juce::FontOptions("Arial", 15.0f, juce::Font::bold)));
-    g.drawText("HOW TO USE", centerX, textY, contentWidth, 25,
+    if (distropiaxFont.getTypefaceName().isNotEmpty())
+        g.setFont(juce::Font(juce::FontOptions(distropiaxFont.getTypefacePtr()).withHeight(24.0f)));
+    else
+        g.setFont(juce::Font(juce::FontOptions("Arial", 20.0f, juce::Font::bold)));
+    g.drawText("HOW TO USE", centerX, textY, contentWidth, 30,
                juce::Justification::centredLeft);
 
     textY += 32;
     g.setColour(juce::Colour(0xffaaaaaa));
-    g.setFont(juce::Font(juce::FontOptions("Arial", 11.5f, juce::Font::plain)));
+    if (wonderworldFont.getTypefaceName().isNotEmpty())
+        g.setFont(juce::Font(juce::FontOptions(wonderworldFont.getTypefacePtr()).withHeight(11.5f)));
+    else
+        g.setFont(juce::Font(juce::FontOptions("Arial", 11.5f, juce::Font::plain)));
     const int bulletSpacing = 24;
 
     g.drawText("1. Insert Skald on its own MIDI track (leave track empty, no instruments)",
@@ -1151,16 +1182,22 @@ void TurntableMIDIEditor::paintHelpScreen(juce::Graphics& g)
     g.drawText("4. Add dots, adjust parameters, and let Skald generate MIDI for your synth!",
                centerX + 10, textY, contentWidth - 20, 20, juce::Justification::centredLeft);
 
-    // Core Features section
+    // Core Features section - using sub-header font (larger)
     textY += 40;
     g.setColour(juce::Colour(0xffE67E22));
-    g.setFont(juce::Font(juce::FontOptions("Arial", 15.0f, juce::Font::bold)));
-    g.drawText("CORE FEATURES", centerX, textY, contentWidth, 25,
+    if (distropiaxFont.getTypefaceName().isNotEmpty())
+        g.setFont(juce::Font(juce::FontOptions(distropiaxFont.getTypefacePtr()).withHeight(24.0f)));
+    else
+        g.setFont(juce::Font(juce::FontOptions("Arial", 20.0f, juce::Font::bold)));
+    g.drawText("CORE FEATURES", centerX, textY, contentWidth, 30,
                juce::Justification::centredLeft);
 
     textY += 32;
     g.setColour(juce::Colour(0xffaaaaaa));
-    g.setFont(juce::Font(juce::FontOptions("Arial", 11.5f, juce::Font::plain)));
+    if (wonderworldFont.getTypefaceName().isNotEmpty())
+        g.setFont(juce::Font(juce::FontOptions(wonderworldFont.getTypefacePtr()).withHeight(11.5f)));
+    else
+        g.setFont(juce::Font(juce::FontOptions("Arial", 11.5f, juce::Font::plain)));
 
     // Feature bullets - Single column
     g.drawText("-  MOTOR ON/OFF: Toggle between motorized playback and manual scrub mode",

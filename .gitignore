@@ -48,3 +48,6 @@ JuceLibraryCode/
 docs/_build/
 html/
 latex/
+
+# Git credentials (contains PAT token)
+.git/credentials
