@@ -1,0 +1,50 @@
+# Build directories
+build/
+Build/
+Builds/
+cmake-build-*/
+
+# macOS
+.DS_Store
+*.DS_Store
+.AppleDouble
+.LSOverride
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Compiled files
+*.o
+*.obj
+*.exe
+*.out
+*.app
+
+# JUCE binary data (gets regenerated)
+JuceLibraryCode/
+
+# Local plugin builds (these get installed to system)
+*.vst3
+*.component
+*.dll
+*.dylib
+*.so
+
+# Backup files
+*.bak
+*.tmp
+
+# User-specific files
+*.user
+*.suo
+*.ncb
+*.aps
+
+# Generated documentation
+docs/_build/
+html/
+latex/
