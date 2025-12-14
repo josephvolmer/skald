@@ -7,7 +7,7 @@ Everything is ready! Just need your GitHub credentials to push.
 Run these commands in Terminal:
 
 ```bash
-cd /Users/beowulf/Desktop/claude-vsts/TurntableMIDI
+cd /Users/beowulf/Desktop/claude-vsts/Skald
 
 # Push to your repository
 git push -u origin main
@@ -35,7 +35,7 @@ If you don't have a token:
 1. Download GitHub Desktop: https://desktop.github.com
 2. Sign in with your GitHub account
 3. File → Add Local Repository
-4. Choose: `/Users/beowulf/Desktop/claude-vsts/TurntableMIDI`
+4. Choose: `/Users/beowulf/Desktop/claude-vsts/Skald`
 5. Click **"Publish repository"**
 6. Done!
 
@@ -54,7 +54,7 @@ cat ~/.ssh/id_ed25519.pub | pbcopy
 # 3. Paste and save
 
 # Change remote to SSH
-cd /Users/beowulf/Desktop/claude-vsts/TurntableMIDI
+cd /Users/beowulf/Desktop/claude-vsts/Skald
 git remote set-url origin git@github.com:josephvolmer/skald.git
 
 # Push

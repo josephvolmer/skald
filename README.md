@@ -34,13 +34,13 @@ When you build Skald, it's automatically installed to:
 
 - **VST3**: `~/Library/Audio/Plug-Ins/VST3/Skald.vst3`
 - **AU**: `~/Library/Audio/Plug-Ins/Components/Skald.component`
-- **Standalone**: `build/TurntableMIDI_artefacts/Release/Standalone/Skald.app`
+- **Standalone**: `build/Skald_artefacts/Release/Standalone/Skald.app`
 
 ### Building from Source
 
 ```bash
 # Clone or navigate to project
-cd TurntableMIDI
+cd Skald
 
 # Configure CMake (first time only)
 cmake -B build -DCMAKE_BUILD_TYPE=Release
@@ -150,7 +150,7 @@ See [QUICK_START.md](QUICK_START.md) for detailed DAW-specific instructions.
 ## Project Structure
 
 ```
-TurntableMIDI/
+Skald/
 ├── CMakeLists.txt              # Build configuration
 ├── Source/
 │   ├── PluginProcessor.h       # MIDI generation engine

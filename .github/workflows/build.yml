@@ -39,23 +39,20 @@ jobs:
       run: |
         choco install cmake --installargs 'ADD_CMAKE_TO_PATH=System'
 
-    - name: Configure CMake
-      run: cmake -B build -DCMAKE_BUILD_TYPE=Release
-
-    - name: Build
-      run: cmake --build build --config Release
+    - name: Build with Make
+      run: make JOBS=4
 
     - name: Prepare artifacts (Windows)
       if: runner.os == 'Windows'
       run: |
         mkdir -p artifact
-        cp -r build/TurntableMIDI_artefacts/Release/VST3/Skald.vst3 artifact/
+        cp -r build/Skald_artefacts/Release/VST3/Skald.vst3 artifact/
 
     - name: Prepare artifacts (macOS)
       if: runner.os == 'macOS'
       run: |
         mkdir -p artifact
-        cp -r build/TurntableMIDI_artefacts/Release/VST3/Skald.vst3 artifact/
+        cp -r build/Skald_artefacts/Release/VST3/Skald.vst3 artifact/
 
     - name: Upload VST3 artifacts
       uses: actions/upload-artifact@v3

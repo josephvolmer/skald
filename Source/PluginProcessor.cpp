@@ -2,7 +2,7 @@
 #include "PluginEditor.h"
 
 //==============================================================================
-TurntableMIDIProcessor::TurntableMIDIProcessor()
+SkaldProcessor::SkaldProcessor()
      : AudioProcessor (BusesProperties()
                        .withOutput ("Output", juce::AudioChannelSet::stereo(), true)
                       )
@@ -17,79 +17,79 @@ TurntableMIDIProcessor::TurntableMIDIProcessor()
     addDot(270.0f, 2, juce::Colour(0xffff6b35));    // 3rd note
 }
 
-TurntableMIDIProcessor::~TurntableMIDIProcessor()
+SkaldProcessor::~SkaldProcessor()
 {
 }
 
 //==============================================================================
-const juce::String TurntableMIDIProcessor::getName() const
+const juce::String SkaldProcessor::getName() const
 {
     return JucePlugin_Name;
 }
 
-bool TurntableMIDIProcessor::acceptsMidi() const
+bool SkaldProcessor::acceptsMidi() const
 {
     return true;  // Must accept MIDI for Ableton to recognize as Instrument
 }
 
-bool TurntableMIDIProcessor::producesMidi() const
+bool SkaldProcessor::producesMidi() const
 {
     return true;
 }
 
-bool TurntableMIDIProcessor::isMidiEffect() const
+bool SkaldProcessor::isMidiEffect() const
 {
     return false;  // Must be false for Ableton Live compatibility
 }
 
-double TurntableMIDIProcessor::getTailLengthSeconds() const
+double SkaldProcessor::getTailLengthSeconds() const
 {
     return 0.0;
 }
 
-int TurntableMIDIProcessor::getNumPrograms()
+int SkaldProcessor::getNumPrograms()
 {
     return 1;
 }
 
-int TurntableMIDIProcessor::getCurrentProgram()
+int SkaldProcessor::getCurrentProgram()
 {
     return 0;
 }
 
-void TurntableMIDIProcessor::setCurrentProgram (int index)
+void SkaldProcessor::setCurrentProgram (int index)
 {
     juce::ignoreUnused (index);
 }
 
-const juce::String TurntableMIDIProcessor::getProgramName (int index)
+const juce::String SkaldProcessor::getProgramName (int index)
 {
     juce::ignoreUnused (index);
     return {};
 }
 
-void TurntableMIDIProcessor::changeProgramName (int index, const juce::String& newName)
+void SkaldProcessor::changeProgramName (int index, const juce::String& newName)
 {
     juce::ignoreUnused (index, newName);
 }
 
 //==============================================================================
-void TurntableMIDIProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
+void SkaldProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
 {
     this->sampleRate = sampleRate;
     triggeredThisRotation.resize(dots.size(), false);
 }
 
-void TurntableMIDIProcessor::releaseResources()
+void SkaldProcessor::releaseResources()
 {
 }
 
-bool TurntableMIDIProcessor::isBusesLayoutSupported (const BusesLayout& layouts) const
+bool SkaldProcessor::isBusesLayoutSupported (const BusesLayout& layouts) const
 {
     return layouts.getMainOutputChannelSet() == juce::AudioChannelSet::stereo();
 }
 
-void TurntableMIDIProcessor::processBlock (juce::AudioBuffer<float>& buffer,
+void SkaldProcessor::processBlock (juce::AudioBuffer<float>& buffer,
                                            juce::MidiBuffer& midiMessages)
 {
     buffer.clear();
@@ -153,11 +153,12 @@ void TurntableMIDIProcessor::processBlock (juce::AudioBuffer<float>& buffer,
     }
 
     // Record player-style motor control: ramp up/down speed
+    // Motor only runs when BOTH DAW transport is playing AND motor toggle is ON
     const float rampUpRate = 3.0f;    // Fast start (reaches full speed in ~0.33 seconds)
     const float rampDownRate = 0.4f;  // Gradual stop (comes to halt in ~2.5 seconds)
     const float rampStep = 1.0f / sampleRate;  // Per-sample increment
 
-    if (motorRunning)
+    if (motorRunning && shouldPlay)  // BOTH conditions must be true
     {
         // Ramp up to full speed
         if (currentSpeedMultiplier < 1.0f)
@@ -165,7 +166,7 @@ void TurntableMIDIProcessor::processBlock (juce::AudioBuffer<float>& buffer,
     }
     else
     {
-        // Ramp down to stop
+        // Ramp down to stop (if either motor is OFF or DAW is stopped)
         if (currentSpeedMultiplier > 0.0f)
             currentSpeedMultiplier = juce::jmax(0.0f, currentSpeedMultiplier - (rampDownRate * rampStep * buffer.getNumSamples()));
     }
@@ -439,18 +440,18 @@ void TurntableMIDIProcessor::processBlock (juce::AudioBuffer<float>& buffer,
 }
 
 //==============================================================================
-bool TurntableMIDIProcessor::hasEditor() const
+bool SkaldProcessor::hasEditor() const
 {
     return true;
 }
 
-juce::AudioProcessorEditor* TurntableMIDIProcessor::createEditor()
+juce::AudioProcessorEditor* SkaldProcessor::createEditor()
 {
-    return new TurntableMIDIEditor (*this);
+    return new SkaldEditor (*this);
 }
 
 //==============================================================================
-void TurntableMIDIProcessor::getStateInformation (juce::MemoryBlock& destData)
+void SkaldProcessor::getStateInformation (juce::MemoryBlock& destData)
 {
     // Save plugin state (dots configuration, speed, scale, etc.)
     juce::MemoryOutputStream stream(destData, false);
@@ -477,7 +478,7 @@ void TurntableMIDIProcessor::getStateInformation (juce::MemoryBlock& destData)
     stream.writeFloat(swing);
 }
 
-void TurntableMIDIProcessor::setStateInformation (const void* data, int sizeInBytes)
+void SkaldProcessor::setStateInformation (const void* data, int sizeInBytes)
 {
     // Restore plugin state
     juce::MemoryInputStream stream(data, static_cast<size_t>(sizeInBytes), false);
@@ -515,7 +516,7 @@ void TurntableMIDIProcessor::setStateInformation (const void* data, int sizeInBy
 }
 
 //==============================================================================
-void TurntableMIDIProcessor::addDot(float angle, int ringIndex, juce::Colour color)
+void SkaldProcessor::addDot(float angle, int ringIndex, juce::Colour color)
 {
     TurntableDot dot;
     dot.angle = angle;
@@ -526,7 +527,7 @@ void TurntableMIDIProcessor::addDot(float angle, int ringIndex, juce::Colour col
     triggeredThisRotation.resize(dots.size(), false);
 }
 
-void TurntableMIDIProcessor::removeDot(int index)
+void SkaldProcessor::removeDot(int index)
 {
     if (index >= 0 && index < static_cast<int>(dots.size()))
     {
@@ -535,7 +536,7 @@ void TurntableMIDIProcessor::removeDot(int index)
     }
 }
 
-void TurntableMIDIProcessor::clearAllDots()
+void SkaldProcessor::clearAllDots()
 {
     dots.clear();
     triggeredThisRotation.clear();
@@ -544,7 +545,7 @@ void TurntableMIDIProcessor::clearAllDots()
 //==============================================================================
 // Scale system implementation
 
-std::vector<int> TurntableMIDIProcessor::getScaleIntervals(ScaleType scale)
+std::vector<int> SkaldProcessor::getScaleIntervals(ScaleType scale)
 {
     switch (scale)
     {
@@ -565,7 +566,7 @@ std::vector<int> TurntableMIDIProcessor::getScaleIntervals(ScaleType scale)
     }
 }
 
-void TurntableMIDIProcessor::updateScaleNotes()
+void SkaldProcessor::updateScaleNotes()
 {
     scaleNotes.clear();
     auto intervals = getScaleIntervals(currentScale);
@@ -580,24 +581,24 @@ void TurntableMIDIProcessor::updateScaleNotes()
     }
 }
 
-void TurntableMIDIProcessor::setScale(ScaleType newScale)
+void SkaldProcessor::setScale(ScaleType newScale)
 {
     currentScale = newScale;
     updateScaleNotes();
 }
 
-void TurntableMIDIProcessor::setRootNote(int newRoot)
+void SkaldProcessor::setRootNote(int newRoot)
 {
     rootNote = juce::jlimit(0, 11, newRoot);
     updateScaleNotes();
 }
 
-void TurntableMIDIProcessor::setOctaveShift(int shift)
+void SkaldProcessor::setOctaveShift(int shift)
 {
     octaveShift = juce::jlimit(-2, 2, shift);
 }
 
-int TurntableMIDIProcessor::ringToMidiNote(int ringIndex) const
+int SkaldProcessor::ringToMidiNote(int ringIndex) const
 {
     if (ringIndex >= 0 && ringIndex < static_cast<int>(scaleNotes.size()))
     {
@@ -609,7 +610,7 @@ int TurntableMIDIProcessor::ringToMidiNote(int ringIndex) const
 
 //==============================================================================
 // Preview note triggering
-void TurntableMIDIProcessor::triggerPreviewNote(int ringIndex)
+void SkaldProcessor::triggerPreviewNote(int ringIndex)
 {
     int midiNote = ringToMidiNote(ringIndex);
 
@@ -622,7 +623,7 @@ void TurntableMIDIProcessor::triggerPreviewNote(int ringIndex)
 
 //==============================================================================
 // Get recently triggered dots for visual feedback
-std::vector<TurntableMIDIProcessor::TriggeredDotInfo> TurntableMIDIProcessor::getRecentlyTriggeredDots() const
+std::vector<SkaldProcessor::TriggeredDotInfo> SkaldProcessor::getRecentlyTriggeredDots() const
 {
     juce::ScopedLock lock(triggeredDotsLock);
 
@@ -634,5 +635,5 @@ std::vector<TurntableMIDIProcessor::TriggeredDotInfo> TurntableMIDIProcessor::ge
 // This creates new instances of the plugin
 juce::AudioProcessor* JUCE_CALLTYPE createPluginFilter()
 {
-    return new TurntableMIDIProcessor();
+    return new SkaldProcessor();
 }

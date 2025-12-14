@@ -15,7 +15,7 @@ Your plugin has been automatically installed to:
 ### macOS
 - **VST3**: `~/Library/Audio/Plug-Ins/VST3/Skald.vst3`
 - **AU**: `~/Library/Audio/Plug-Ins/Components/Skald.component`
-- **Standalone App**: `build/TurntableMIDI_artefacts/Release/Standalone/Skald.app`
+- **Standalone App**: `build/Skald_artefacts/Release/Standalone/Skald.app`
 
 ---
 

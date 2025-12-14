@@ -1,0 +1,47 @@
+SKALD (VIKING MIDI WARRIOR) - FONT LICENSES
+=============================================
+
+This software uses the following fonts, all of which are licensed for free use
+in commercial and non-commercial projects, including embedding in distributed software.
+
+---
+
+1. CINZEL BOLD
+   - File: fonts/header.ttf
+   - Creator: Natanael Gama
+   - Website: https://fonts.google.com/specimen/Cinzel
+   - License: SIL Open Font License 1.1
+   - License URL: https://openfontlicense.org/
+   - Used for: Main title "SKALD"
+
+2. UNIFRAKTURMAGUNTIA
+   - File: fonts/sub-header.ttf
+   - Creator: j. 'mach' wust, Gerrit Ansmann, Georg Duffner
+   - Website: https://fonts.google.com/specimen/UnifrakturMaguntia
+   - License: SIL Open Font License 1.1
+   - License URL: https://openfontlicense.org/
+   - Used for: Section headers ("How To", "Features")
+
+3. IM FELL ENGLISH
+   - File: fonts/paragraph.ttf
+   - Creator: Igino Marini (based on types by John Fell, 1686)
+   - Website: https://fonts.google.com/specimen/IM+Fell+English
+   - License: SIL Open Font License 1.1
+   - License URL: https://openfontlicense.org/
+   - Used for: Body text, subtitles, and descriptions
+
+---
+
+SIL OPEN FONT LICENSE SUMMARY
+
+The SIL Open Font License (OFL) allows the fonts to be:
+- Used freely in personal and commercial projects
+- Embedded in software and distributed applications
+- Modified and redistributed (as long as fonts aren't sold independently)
+- No attribution required (though appreciated)
+
+Full OFL license text: https://openfontlicense.org/
+
+---
+
+All fonts are legally licensed for use in this free, open-source VST plugin.

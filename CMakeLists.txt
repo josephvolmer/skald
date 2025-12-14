@@ -1,24 +1,24 @@
 cmake_minimum_required(VERSION 3.15)
-project(TurntableMIDI VERSION 1.0.0)
+project(Skald VERSION 1.0.0)
 
 # Add JUCE as a subdirectory
 add_subdirectory(../JUCE ${CMAKE_CURRENT_BINARY_DIR}/JUCE)
 
 # Create binary data from images
-juce_add_binary_data(TurntableMIDIBinaryData
+juce_add_binary_data(SkaldBinaryData
     SOURCES
         images/viking_full.png
         images/viking_head.png
         images/switch_toggle.png
         images/knob_simplegray.png
         images/wallpaper.jpg
-        fonts/header.otf
-        fonts/sub-header.otf
-        fonts/paragraph.otf
+        fonts/header.ttf
+        fonts/sub-header.ttf
+        fonts/paragraph.ttf
 )
 
 # Create the plugin target
-juce_add_plugin(TurntableMIDI
+juce_add_plugin(Skald
     COMPANY_NAME "BeowulfAudio"
     PLUGIN_MANUFACTURER_CODE Bwlf
     PLUGIN_CODE Skld
@@ -35,7 +35,7 @@ juce_add_plugin(TurntableMIDI
 )
 
 # Add source files
-target_sources(TurntableMIDI PRIVATE
+target_sources(Skald PRIVATE
     Source/PluginProcessor.cpp
     Source/PluginProcessor.h
     Source/PluginEditor.cpp
@@ -43,7 +43,7 @@ target_sources(TurntableMIDI PRIVATE
 )
 
 # Compiler definitions
-target_compile_definitions(TurntableMIDI PUBLIC
+target_compile_definitions(Skald PUBLIC
     JUCE_WEB_BROWSER=0
     JUCE_USE_CURL=0
     JUCE_VST3_CAN_REPLACE_VST2=0
@@ -51,8 +51,8 @@ target_compile_definitions(TurntableMIDI PUBLIC
 )
 
 # Link required JUCE modules
-target_link_libraries(TurntableMIDI PRIVATE
-    TurntableMIDIBinaryData
+target_link_libraries(Skald PRIVATE
+    SkaldBinaryData
     juce::juce_audio_basics
     juce::juce_audio_devices
     juce::juce_audio_formats
@@ -68,4 +68,4 @@ target_link_libraries(TurntableMIDI PRIVATE
 )
 
 # C++ standard
-target_compile_features(TurntableMIDI PRIVATE cxx_std_17)
+target_compile_features(Skald PRIVATE cxx_std_17)

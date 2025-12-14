@@ -18,7 +18,7 @@ GitHub Actions needs JUCE to build. You have two options:
 ### Option A: JUCE as Git Submodule (Recommended)
 
 ```bash
-cd /Users/beowulf/Desktop/claude-vsts/TurntableMIDI
+cd /Users/beowulf/Desktop/claude-vsts/Skald
 
 # Add JUCE as submodule
 git submodule add https://github.com/juce-framework/JUCE.git ../JUCE
@@ -33,7 +33,7 @@ add_subdirectory(JUCE ${CMAKE_CURRENT_BINARY_DIR}/JUCE)
 ### Option B: Copy JUCE into repo (Simpler but larger)
 
 ```bash
-cd /Users/beowulf/Desktop/claude-vsts/TurntableMIDI
+cd /Users/beowulf/Desktop/claude-vsts/Skald
 mkdir JUCE
 cp -r ../JUCE/* JUCE/
 ```
@@ -46,7 +46,7 @@ add_subdirectory(JUCE ${CMAKE_CURRENT_BINARY_DIR}/JUCE)
 ## Step 3: Initialize Git Repository
 
 ```bash
-cd /Users/beowulf/Desktop/claude-vsts/TurntableMIDI
+cd /Users/beowulf/Desktop/claude-vsts/Skald
 
 # Initialize git
 git init
@@ -134,8 +134,8 @@ cp ~/Downloads/Skald-VST3-Windows/* Skald-v1.0.0-Complete/Windows/
 
 # Documentation
 mkdir Skald-v1.0.0-Complete/Documentation
-cp /Users/beowulf/Desktop/claude-vsts/TurntableMIDI/README.md Skald-v1.0.0-Complete/Documentation/
-cp /Users/beowulf/Desktop/claude-vsts/TurntableMIDI/QUICK_START.md Skald-v1.0.0-Complete/Documentation/
+cp /Users/beowulf/Desktop/claude-vsts/Skald/README.md Skald-v1.0.0-Complete/Documentation/
+cp /Users/beowulf/Desktop/claude-vsts/Skald/QUICK_START.md Skald-v1.0.0-Complete/Documentation/
 
 # Create README and installation guide
 # (Use the files you already created)

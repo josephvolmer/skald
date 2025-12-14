@@ -35,7 +35,7 @@ struct TurntableDot
 };
 
 //==============================================================================
-class TurntableMIDIProcessor : public juce::AudioProcessor
+class SkaldProcessor : public juce::AudioProcessor
 {
 public:
     // Track recently triggered dots for visual feedback
@@ -49,8 +49,8 @@ public:
         int beatCount;          // Beat counter state (for swing visualization)
     };
 
-    TurntableMIDIProcessor();
-    ~TurntableMIDIProcessor() override;
+    SkaldProcessor();
+    ~SkaldProcessor() override;
 
     //==============================================================================
     void prepareToPlay (double sampleRate, int samplesPerBlock) override;
@@ -233,5 +233,5 @@ private:
     // Track swing state (which beat we're on for swing timing)
     int swingBeatCounter = 0;
 
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (TurntableMIDIProcessor)
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (SkaldProcessor)
 };

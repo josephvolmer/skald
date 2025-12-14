@@ -6,13 +6,13 @@
 
 //==============================================================================
 // Forward declaration
-class TurntableMIDIEditor;
+class SkaldEditor;
 
 // Custom hardware-style button look
 class HardwareButtonLookAndFeel : public juce::LookAndFeel_V4
 {
 public:
-    HardwareButtonLookAndFeel(TurntableMIDIEditor* ed) : editor(ed) {}
+    HardwareButtonLookAndFeel(SkaldEditor* ed) : editor(ed) {}
 
     void drawButtonBackground(juce::Graphics& g, juce::Button& button, const juce::Colour& backgroundColour,
                             bool isMouseOverButton, bool isButtonDown) override;
@@ -21,7 +21,7 @@ public:
                        bool isMouseOverButton, bool isButtonDown) override;
 
 private:
-    TurntableMIDIEditor* editor;
+    SkaldEditor* editor;
 };
 
 //==============================================================================
@@ -66,12 +66,12 @@ private:
 };
 
 //==============================================================================
-class TurntableMIDIEditor : public juce::AudioProcessorEditor,
+class SkaldEditor : public juce::AudioProcessorEditor,
                             private juce::Timer
 {
 public:
-    TurntableMIDIEditor (TurntableMIDIProcessor&);
-    ~TurntableMIDIEditor() override;
+    SkaldEditor (SkaldProcessor&);
+    ~SkaldEditor() override;
 
     //==============================================================================
     void paint (juce::Graphics&) override;
@@ -93,7 +93,7 @@ public:
     juce::Font wonderworldFont;      // For regular text
 
 private:
-    TurntableMIDIProcessor& audioProcessor;
+    SkaldProcessor& audioProcessor;
     HardwareButtonLookAndFeel hardwareLookAndFeel;
 
     // UI Components
@@ -208,5 +208,5 @@ private:
     float calculateGlowBrightness(int velocity) const;
     float getSwingOffset(int beatCount, float swingAmount) const;
 
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (TurntableMIDIEditor)
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (SkaldEditor)
 };

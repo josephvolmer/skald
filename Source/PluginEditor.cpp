@@ -120,7 +120,7 @@ void HardwareButtonLookAndFeel::drawButtonText(juce::Graphics& g, juce::TextButt
 }
 
 //==============================================================================
-TurntableMIDIEditor::TurntableMIDIEditor (TurntableMIDIProcessor& p)
+SkaldEditor::SkaldEditor (SkaldProcessor& p)
     : AudioProcessorEditor (&p), audioProcessor (p), hardwareLookAndFeel(this)
 {
     setSize (900, 850);  // Wider and taller for more room
@@ -583,19 +583,22 @@ TurntableMIDIEditor::TurntableMIDIEditor (TurntableMIDIProcessor& p)
     vikingFullImage = juce::ImageCache::getFromMemory(BinaryData::viking_full_png,
                                                        BinaryData::viking_full_pngSize);
 
-    // Load custom fonts
-    auto headerFontData = juce::Typeface::createSystemTypefaceFor(BinaryData::header_otf,
-                                                                   BinaryData::header_otfSize);
+    // Load custom fonts (all legally licensed for distribution)
+    // Cinzel Bold - SIL OFL 1.1
+    auto headerFontData = juce::Typeface::createSystemTypefaceFor(BinaryData::header_ttf,
+                                                                   BinaryData::header_ttfSize);
     if (headerFontData)
         csArthemisFont = juce::Font(juce::FontOptions(headerFontData));
 
-    auto subHeaderFontData = juce::Typeface::createSystemTypefaceFor(BinaryData::subheader_otf,
-                                                                      BinaryData::subheader_otfSize);
+    // UnifrakturMaguntia - SIL OFL 1.1
+    auto subHeaderFontData = juce::Typeface::createSystemTypefaceFor(BinaryData::subheader_ttf,
+                                                                      BinaryData::subheader_ttfSize);
     if (subHeaderFontData)
         distropiaxFont = juce::Font(juce::FontOptions(subHeaderFontData));
 
-    auto paragraphFontData = juce::Typeface::createSystemTypefaceFor(BinaryData::paragraph_otf,
-                                                                      BinaryData::paragraph_otfSize);
+    // IM Fell English - SIL OFL 1.1
+    auto paragraphFontData = juce::Typeface::createSystemTypefaceFor(BinaryData::paragraph_ttf,
+                                                                      BinaryData::paragraph_ttfSize);
     if (paragraphFontData)
         wonderworldFont = juce::Font(juce::FontOptions(paragraphFontData));
 
@@ -618,13 +621,13 @@ TurntableMIDIEditor::TurntableMIDIEditor (TurntableMIDIProcessor& p)
     startTimerHz(30);
 }
 
-TurntableMIDIEditor::~TurntableMIDIEditor()
+SkaldEditor::~SkaldEditor()
 {
     stopTimer();
 }
 
 //==============================================================================
-void TurntableMIDIEditor::paint (juce::Graphics& g)
+void SkaldEditor::paint (juce::Graphics& g)
 {
     // Background - textured wallpaper
     if (wallpaperImage.isValid())
@@ -834,7 +837,7 @@ void TurntableMIDIEditor::paint (juce::Graphics& g)
             continue;
 
         // Find trigger info for this dot
-        const TurntableMIDIProcessor::TriggeredDotInfo* triggerInfo = nullptr;
+        const SkaldProcessor::TriggeredDotInfo* triggerInfo = nullptr;
         for (const auto& info : triggeredDotsForArm)
         {
             if (info.dotIndex == static_cast<int>(i) && (currentTimeForArm - info.timestamp) <= 200)
@@ -904,7 +907,7 @@ void TurntableMIDIEditor::paint (juce::Graphics& g)
     auto currentTime = juce::Time::currentTimeMillis();
 
     // Helper to find triggered info for a dot
-    auto findTriggeredInfo = [&triggeredDots, currentTime](int index) -> const TurntableMIDIProcessor::TriggeredDotInfo* {
+    auto findTriggeredInfo = [&triggeredDots, currentTime](int index) -> const SkaldProcessor::TriggeredDotInfo* {
         for (const auto& info : triggeredDots)
         {
             if (info.dotIndex == index && (currentTime - info.timestamp) <= 200)
@@ -1089,18 +1092,18 @@ void TurntableMIDIEditor::paint (juce::Graphics& g)
     g.fillEllipse(turntableCenter.x - 15, turntableCenter.y - 15, 12, 12);
 }
 
-void TurntableMIDIEditor::paintHelpScreen(juce::Graphics& g)
+void SkaldEditor::paintHelpScreen(juce::Graphics& g)
 {
-    const int margin = 50;
-    const int logoHeight = 120;
-    const int logoWidth = 110;
+    const int margin = 40;       // Tighter (was 50)
+    const int logoHeight = 100;  // Smaller (was 120)
+    const int logoWidth = 92;    // Smaller (was 110)
     const int logoPadding = 8;
 
     // Draw full Viking warrior at top center
     if (vikingFullImage.isValid())
     {
         int logoX = (getWidth() - logoWidth) / 2;
-        int logoY = 15;  // Moved up more
+        int logoY = 10;  // Moved up more (was 15)
         g.setOpacity(1.0f);
         g.drawImageWithin(vikingFullImage,
                          logoX + logoPadding,
@@ -1110,94 +1113,94 @@ void TurntableMIDIEditor::paintHelpScreen(juce::Graphics& g)
                          juce::RectanglePlacement::centred | juce::RectanglePlacement::onlyReduceInSize);
     }
 
-    // Title - using header font (larger)
+    // Title - using header font (even larger)
     g.setColour(juce::Colour(0xffE67E22));
     if (csArthemisFont.getTypefaceName().isNotEmpty())
-        g.setFont(juce::Font(juce::FontOptions(csArthemisFont.getTypefacePtr()).withHeight(60.0f)));
+        g.setFont(juce::Font(juce::FontOptions(csArthemisFont.getTypefacePtr()).withHeight(72.0f)));
     else
-        g.setFont(juce::Font(juce::FontOptions("Arial", 52.0f, juce::Font::bold)));
-    g.drawText("SKALD", 0, 15 + logoHeight, getWidth(), 55,
+        g.setFont(juce::Font(juce::FontOptions("Arial", 64.0f, juce::Font::bold)));
+    g.drawText("SKALD", 0, 10 + logoHeight, getWidth(), 70,
                juce::Justification::centred);
 
-    // Subtitle - using Wonderworld font
+    // Subtitle - using Wonderworld font (with more padding below title)
     g.setColour(juce::Colour(0xff888888));
     if (wonderworldFont.getTypefaceName().isNotEmpty())
         g.setFont(juce::Font(juce::FontOptions(wonderworldFont.getTypefacePtr()).withHeight(16.0f)));
     else
         g.setFont(juce::Font(juce::FontOptions("Arial", 16.0f, juce::Font::plain)));
-    g.drawText("Viking MIDI Warrior", 0, 15 + logoHeight + 45, getWidth(), 22,
+    g.drawText("Viking MIDI Warrior", 0, 10 + logoHeight + 72, getWidth(), 22,
                juce::Justification::centred);
 
-    // Main description with shoutouts - using Wonderworld font
-    int textY = 15 + logoHeight + 72;
+    // Main description with shoutouts - using Wonderworld font (larger!)
+    int textY = 10 + logoHeight + 102;  // More space after subtitle
     g.setColour(juce::Colour(0xffcccccc));
     if (wonderworldFont.getTypefaceName().isNotEmpty())
-        g.setFont(juce::Font(juce::FontOptions(wonderworldFont.getTypefacePtr()).withHeight(12.0f)));
+        g.setFont(juce::Font(juce::FontOptions(wonderworldFont.getTypefacePtr()).withHeight(15.0f)));
     else
-        g.setFont(juce::Font(juce::FontOptions("Arial", 12.0f, juce::Font::plain)));
+        g.setFont(juce::Font(juce::FontOptions("Arial", 15.0f, juce::Font::plain)));
 
     juce::String description =
-        "Skald is a generative MIDI sequencer inspired by Quintron's Drum Buddy and "
-        "Playtonica MIDI Color Sequencer Orbita - mechanical rhythm machines that merge "
-        "analog charm with hands-on performance. Place notes on concentric rings, scratch "
-        "like vinyl, and explore generative patterns with motor control and probability.";
+        "Behold Skald, a warrior's weapon for forging rhythmic sagas! Born from the ancient "
+        "crafts of Quintron's Drum Buddy and Playtonica's Orbita, this mechanical shieldmaiden "
+        "merges the old ways with new sorcery. Command thy notes upon rings of fate, scratch "
+        "thy vinyl like a battle axe upon shield, and let chance and motor drive shape thy destiny!";
 
-    g.drawFittedText(description, margin, textY, getWidth() - (margin * 2), 70,
-                    juce::Justification::centred, 3);
+    g.drawFittedText(description, margin, textY, getWidth() - (margin * 2), 85,
+                    juce::Justification::centred, 4);
 
     // Single column layout
     textY += 85;
     const int contentWidth = getWidth() - (margin * 2);
     const int centerX = margin;
 
-    // How to Use section - using sub-header font (larger)
+    // How To section - using sub-header font (larger and closer)
     g.setColour(juce::Colour(0xffE67E22));
     if (distropiaxFont.getTypefaceName().isNotEmpty())
-        g.setFont(juce::Font(juce::FontOptions(distropiaxFont.getTypefacePtr()).withHeight(24.0f)));
+        g.setFont(juce::Font(juce::FontOptions(distropiaxFont.getTypefacePtr()).withHeight(40.0f)));
     else
-        g.setFont(juce::Font(juce::FontOptions("Arial", 20.0f, juce::Font::bold)));
-    g.drawText("HOW TO USE", centerX, textY, contentWidth, 30,
+        g.setFont(juce::Font(juce::FontOptions("Arial", 36.0f, juce::Font::bold)));
+    g.drawText("How To", centerX, textY, contentWidth, 45,
                juce::Justification::centredLeft);
 
-    textY += 32;
+    textY += 50;  // Space after header
     g.setColour(juce::Colour(0xffaaaaaa));
     if (wonderworldFont.getTypefaceName().isNotEmpty())
-        g.setFont(juce::Font(juce::FontOptions(wonderworldFont.getTypefacePtr()).withHeight(11.5f)));
+        g.setFont(juce::Font(juce::FontOptions(wonderworldFont.getTypefacePtr()).withHeight(13.0f)));
     else
-        g.setFont(juce::Font(juce::FontOptions("Arial", 11.5f, juce::Font::plain)));
-    const int bulletSpacing = 24;
+        g.setFont(juce::Font(juce::FontOptions("Arial", 13.0f, juce::Font::plain)));
+    const int bulletSpacing = 18;  // Tighter line spacing
 
-    g.drawText("1. Insert Skald on its own MIDI track (leave track empty, no instruments)",
+    g.drawText("- Insert Skald on its own MIDI track (leave track empty, no instruments)",
                centerX + 10, textY, contentWidth - 20, 20, juce::Justification::centredLeft);
     textY += bulletSpacing;
 
-    g.drawText("2. Create a separate MIDI track with your synth/instrument",
+    g.drawText("- Create a separate MIDI track with your synth/instrument",
                centerX + 10, textY, contentWidth - 20, 20, juce::Justification::centredLeft);
     textY += bulletSpacing;
 
-    g.drawText("3. Route MIDI from Skald's track to your synth track (check DAW routing settings)",
+    g.drawText("- Route MIDI from Skald's track to your synth track (check DAW routing settings)",
                centerX + 10, textY, contentWidth - 20, 20, juce::Justification::centredLeft);
     textY += bulletSpacing;
 
-    g.drawText("4. Add dots, adjust parameters, and let Skald generate MIDI for your synth!",
+    g.drawText("- Add dots, adjust parameters, and let Skald generate MIDI for your synth!",
                centerX + 10, textY, contentWidth - 20, 20, juce::Justification::centredLeft);
 
-    // Core Features section - using sub-header font (larger)
-    textY += 40;
+    // Features section - using sub-header font (larger and closer)
+    textY += 32;  // Space before next section
     g.setColour(juce::Colour(0xffE67E22));
     if (distropiaxFont.getTypefaceName().isNotEmpty())
-        g.setFont(juce::Font(juce::FontOptions(distropiaxFont.getTypefacePtr()).withHeight(24.0f)));
+        g.setFont(juce::Font(juce::FontOptions(distropiaxFont.getTypefacePtr()).withHeight(40.0f)));
     else
-        g.setFont(juce::Font(juce::FontOptions("Arial", 20.0f, juce::Font::bold)));
-    g.drawText("CORE FEATURES", centerX, textY, contentWidth, 30,
+        g.setFont(juce::Font(juce::FontOptions("Arial", 36.0f, juce::Font::bold)));
+    g.drawText("Features", centerX, textY, contentWidth, 45,
                juce::Justification::centredLeft);
 
-    textY += 32;
+    textY += 50;  // Space after header
     g.setColour(juce::Colour(0xffaaaaaa));
     if (wonderworldFont.getTypefaceName().isNotEmpty())
-        g.setFont(juce::Font(juce::FontOptions(wonderworldFont.getTypefacePtr()).withHeight(11.5f)));
+        g.setFont(juce::Font(juce::FontOptions(wonderworldFont.getTypefacePtr()).withHeight(13.0f)));
     else
-        g.setFont(juce::Font(juce::FontOptions("Arial", 11.5f, juce::Font::plain)));
+        g.setFont(juce::Font(juce::FontOptions("Arial", 13.0f, juce::Font::plain)));
 
     // Feature bullets - Single column
     g.drawText("-  MOTOR ON/OFF: Toggle between motorized playback and manual scrub mode",
@@ -1220,7 +1223,7 @@ void TurntableMIDIEditor::paintHelpScreen(juce::Graphics& g)
                centerX + 10, textY, contentWidth - 20, 20, juce::Justification::centredLeft);
     textY += bulletSpacing;
 
-    g.drawText("-  SPEED: Control rotation speed from 0.25x to 4x (relative to BPM)",
+    g.drawText("-  SPEED: Control rotation speed from quarter to quad speed (relative to BPM)",
                centerX + 10, textY, contentWidth - 20, 20, juce::Justification::centredLeft);
     textY += bulletSpacing;
 
@@ -1240,7 +1243,7 @@ void TurntableMIDIEditor::paintHelpScreen(juce::Graphics& g)
                centerX + 10, textY, contentWidth - 20, 20, juce::Justification::centredLeft);
     textY += bulletSpacing;
 
-    g.drawText("-  SWING: Add groove with adjustable swing timing (50% = straight, 66% = triplet)",
+    g.drawText("-  SWING: Add groove with adjustable swing timing (straight to triplet feel)",
                centerX + 10, textY, contentWidth - 20, 20, juce::Justification::centredLeft);
     textY += bulletSpacing;
 
@@ -1258,7 +1261,7 @@ void TurntableMIDIEditor::paintHelpScreen(juce::Graphics& g)
                getWidth(), 20, juce::Justification::centred);
 }
 
-void TurntableMIDIEditor::setControlsVisible(bool visible)
+void SkaldEditor::setControlsVisible(bool visible)
 {
     // Top controls
     speedDisplay.setVisible(visible);
@@ -1312,7 +1315,7 @@ void TurntableMIDIEditor::setControlsVisible(bool visible)
     bpmSlider.setVisible(visible);
 }
 
-void TurntableMIDIEditor::resized()
+void SkaldEditor::resized()
 {
     auto area = getLocalBounds();
 
@@ -1512,7 +1515,7 @@ void TurntableMIDIEditor::resized()
     startStopLabel.setBounds(toggleX, toggleY + 56, toggleWidth, toggleLabelHeight);
 }
 
-void TurntableMIDIEditor::mouseDown (const juce::MouseEvent& event)
+void SkaldEditor::mouseDown (const juce::MouseEvent& event)
 {
     auto clickPos = event.position;
 
@@ -1645,7 +1648,7 @@ void TurntableMIDIEditor::mouseDown (const juce::MouseEvent& event)
     }
 }
 
-void TurntableMIDIEditor::mouseUp (const juce::MouseEvent& event)
+void SkaldEditor::mouseUp (const juce::MouseEvent& event)
 {
     juce::ignoreUnused(event);
 
@@ -1661,7 +1664,7 @@ void TurntableMIDIEditor::mouseUp (const juce::MouseEvent& event)
     isDraggingDot = false;
 }
 
-void TurntableMIDIEditor::mouseDrag (const juce::MouseEvent& event)
+void SkaldEditor::mouseDrag (const juce::MouseEvent& event)
 {
     // Handle scratching (manual turntable control)
     if (isScratching)
@@ -1771,7 +1774,7 @@ void TurntableMIDIEditor::mouseDrag (const juce::MouseEvent& event)
     }
 }
 
-void TurntableMIDIEditor::timerCallback()
+void SkaldEditor::timerCallback()
 {
     // Repaint to update the rotating turntable
     repaint();
@@ -1780,7 +1783,7 @@ void TurntableMIDIEditor::timerCallback()
 //==============================================================================
 // Helper methods
 
-float TurntableMIDIEditor::angleFromPoint(juce::Point<float> point)
+float SkaldEditor::angleFromPoint(juce::Point<float> point)
 {
     auto delta = point - turntableCenter;
     float angleRadians = std::atan2(delta.y, delta.x);
@@ -1800,7 +1803,7 @@ float TurntableMIDIEditor::angleFromPoint(juce::Point<float> point)
     return angleDegrees;
 }
 
-juce::Point<float> TurntableMIDIEditor::pointFromAngle(float angle, float radius)
+juce::Point<float> SkaldEditor::pointFromAngle(float angle, float radius)
 {
     float angleRadians = (angle - 90.0f) * juce::MathConstants<float>::pi / 180.0f;
     return juce::Point<float>(
@@ -1809,7 +1812,7 @@ juce::Point<float> TurntableMIDIEditor::pointFromAngle(float angle, float radius
     );
 }
 
-int TurntableMIDIEditor::findDotAtPoint(juce::Point<float> point)
+int SkaldEditor::findDotAtPoint(juce::Point<float> point)
 {
     auto& dots = audioProcessor.getDots();
     float innerRadius = turntableRadius * 0.90f;
@@ -1848,13 +1851,13 @@ int TurntableMIDIEditor::findDotAtPoint(juce::Point<float> point)
     return -1;
 }
 
-float TurntableMIDIEditor::getRingSpacing() const
+float SkaldEditor::getRingSpacing() const
 {
     int numRings = audioProcessor.getNumRings();
     return numRings > 0 ? 0.80f / numRings : 0.15f;
 }
 
-juce::String TurntableMIDIEditor::midiNoteToString(int midiNote) const
+juce::String SkaldEditor::midiNoteToString(int midiNote) const
 {
     const char* noteNames[] = { "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B" };
 
@@ -1864,7 +1867,7 @@ juce::String TurntableMIDIEditor::midiNoteToString(int midiNote) const
     return juce::String(noteNames[noteInOctave]) + juce::String(octave);
 }
 
-float TurntableMIDIEditor::calculateGlowBrightness(int velocity) const
+float SkaldEditor::calculateGlowBrightness(int velocity) const
 {
     // Map velocity (1-127) to brightness multiplier (0.3 - 1.0)
     // Low velocity (1-40): 0.3 - 0.5
@@ -1874,7 +1877,7 @@ float TurntableMIDIEditor::calculateGlowBrightness(int velocity) const
     return 0.3f + (normalized * 0.7f);
 }
 
-float TurntableMIDIEditor::getSwingOffset(int beatCount, float swingAmount) const
+float SkaldEditor::getSwingOffset(int beatCount, float swingAmount) const
 {
     // Calculate angle offset for swing visualization (matches audio swing timing)
     // Even beats (0, 2, 4...): No offset

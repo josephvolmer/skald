@@ -13,7 +13,7 @@ This repository includes GitHub Actions that automatically build VST3 for both W
 ### Setting up GitHub repository:
 
 ```bash
-cd TurntableMIDI
+cd Skald
 git init
 git add .
 git commit -m "Initial commit - Skald v1.0.0"
@@ -77,7 +77,7 @@ cmake -B build -G "Visual Studio 16 2019"
 # Build
 cmake --build build --config Release
 
-# Output: build/TurntableMIDI_artefacts/Release/VST3/Skald.vst3
+# Output: build/Skald_artefacts/Release/VST3/Skald.vst3
 ```
 
 ### Linux Build
@@ -91,7 +91,7 @@ sudo apt-get install build-essential libasound2-dev libx11-dev libxrandr-dev \
 cmake -B build -DCMAKE_BUILD_TYPE=Release
 cmake --build build --config Release
 
-# Output: build/TurntableMIDI_artefacts/Release/VST3/Skald.vst3
+# Output: build/Skald_artefacts/Release/VST3/Skald.vst3
 ```
 
 ---
@@ -113,7 +113,7 @@ After each push, GitHub Actions creates build artifacts:
 ## Repository Structure
 
 ```
-TurntableMIDI/
+Skald/
 ├── .github/
 │   └── workflows/
 │       └── build.yml          # Automated build workflow
