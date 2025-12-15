@@ -88,9 +88,9 @@ public:
     juce::Image wallpaperImage;
 
     // Custom fonts
-    juce::Font csArthemisFont;      // For titles
-    juce::Font distropiaxFont;       // For sub-headers
-    juce::Font wonderworldFont;      // For regular text
+    juce::Font csArthemisFont { juce::FontOptions() };      // For titles
+    juce::Font distropiaxFont { juce::FontOptions() };      // For sub-headers
+    juce::Font wonderworldFont { juce::FontOptions() };     // For regular text
 
 private:
     SkaldProcessor& audioProcessor;
