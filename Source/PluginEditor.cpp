@@ -131,7 +131,7 @@ SkaldEditor::SkaldEditor (SkaldProcessor& p)
     speedDisplay.setColour(juce::Label::backgroundColourId, juce::Colour(0xff0a0a0a));
     speedDisplay.setColour(juce::Label::textColourId, juce::Colour(0xff00d9ff));
     speedDisplay.setColour(juce::Label::outlineColourId, juce::Colour(0xff1a3a3a));
-    speedDisplay.setFont(juce::Font(juce::FontOptions("Courier New", 14.0f, juce::Font::bold)));
+    speedDisplay.setFont(juce::FontOptions("Courier New", 14.0f, juce::Font::bold));
     addAndMakeVisible(speedDisplay);
 
     // Speed tap button (small, no text)
@@ -152,7 +152,7 @@ SkaldEditor::SkaldEditor (SkaldProcessor& p)
     speedLabel.setText("DIV", juce::dontSendNotification);
     speedLabel.setJustificationType(juce::Justification::centred);
     speedLabel.setColour(juce::Label::textColourId, juce::Colour(0xff888888));
-    speedLabel.setFont(juce::Font(juce::FontOptions("Arial", 9.0f, juce::Font::bold)));
+    speedLabel.setFont(juce::FontOptions("Arial", 9.0f, juce::Font::bold));
     addAndMakeVisible(speedLabel);
 
     // Load icons from embedded binary data
@@ -184,7 +184,7 @@ SkaldEditor::SkaldEditor (SkaldProcessor& p)
     clearLabel.setText("CLR", juce::dontSendNotification);
     clearLabel.setJustificationType(juce::Justification::centred);
     clearLabel.setColour(juce::Label::textColourId, juce::Colour(0xff888888));
-    clearLabel.setFont(juce::Font(juce::FontOptions("Arial", 9.0f, juce::Font::bold)));
+    clearLabel.setFont(juce::FontOptions("Arial", 9.0f, juce::Font::bold));
     addAndMakeVisible(clearLabel);
 
     // Add dot button (hardware style - cyan for adding/creating)
@@ -209,7 +209,7 @@ SkaldEditor::SkaldEditor (SkaldProcessor& p)
     addLabel.setText("ADD", juce::dontSendNotification);
     addLabel.setJustificationType(juce::Justification::centred);
     addLabel.setColour(juce::Label::textColourId, juce::Colour(0xff888888));
-    addLabel.setFont(juce::Font(juce::FontOptions("Arial", 9.0f, juce::Font::bold)));
+    addLabel.setFont(juce::FontOptions("Arial", 9.0f, juce::Font::bold));
     addAndMakeVisible(addLabel);
 
     // Randomize button (hardware style - orange for randomizing/shuffle)
@@ -239,7 +239,7 @@ SkaldEditor::SkaldEditor (SkaldProcessor& p)
     randomizeLabel.setText("RAND", juce::dontSendNotification);
     randomizeLabel.setJustificationType(juce::Justification::centred);
     randomizeLabel.setColour(juce::Label::textColourId, juce::Colour(0xff888888));
-    randomizeLabel.setFont(juce::Font(juce::FontOptions("Arial", 9.0f, juce::Font::bold)));
+    randomizeLabel.setFont(juce::FontOptions("Arial", 9.0f, juce::Font::bold));
     addAndMakeVisible(randomizeLabel);
 
     // Play/Stop button (big vintage transport button) - Only show in Standalone
@@ -278,7 +278,7 @@ SkaldEditor::SkaldEditor (SkaldProcessor& p)
     bpmLabel.setText("TEMPO", juce::dontSendNotification);
     bpmLabel.setJustificationType(juce::Justification::centredLeft);
     bpmLabel.setColour(juce::Label::textColourId, juce::Colour(0xff888888));
-    bpmLabel.setFont(juce::Font(juce::FontOptions("Arial", 11.0f, juce::Font::bold)));
+    bpmLabel.setFont(juce::FontOptions("Arial", 11.0f, juce::Font::bold));
 
     // Velocity knob
     velocityKnob.setRange(1.0, 127.0, 1.0);
@@ -292,7 +292,7 @@ SkaldEditor::SkaldEditor (SkaldProcessor& p)
     velocityLabel.setText("VEL", juce::dontSendNotification);
     velocityLabel.setJustificationType(juce::Justification::centred);
     velocityLabel.setColour(juce::Label::textColourId, juce::Colour(0xff888888));
-    velocityLabel.setFont(juce::Font(juce::FontOptions("Arial", 9.0f, juce::Font::bold)));
+    velocityLabel.setFont(juce::FontOptions("Arial", 9.0f, juce::Font::bold));
     addAndMakeVisible(velocityLabel);
 
     // Gate time knob
@@ -308,7 +308,7 @@ SkaldEditor::SkaldEditor (SkaldProcessor& p)
     gateTimeLabel.setText("GATE", juce::dontSendNotification);
     gateTimeLabel.setJustificationType(juce::Justification::centred);
     gateTimeLabel.setColour(juce::Label::textColourId, juce::Colour(0xff888888));
-    gateTimeLabel.setFont(juce::Font(juce::FontOptions("Arial", 9.0f, juce::Font::bold)));
+    gateTimeLabel.setFont(juce::FontOptions("Arial", 9.0f, juce::Font::bold));
     addAndMakeVisible(gateTimeLabel);
 
     // Reverse toggle
@@ -321,7 +321,7 @@ SkaldEditor::SkaldEditor (SkaldProcessor& p)
     reverseLabel.setText("REV", juce::dontSendNotification);
     reverseLabel.setJustificationType(juce::Justification::centred);
     reverseLabel.setColour(juce::Label::textColourId, juce::Colour(0xff888888));
-    reverseLabel.setFont(juce::Font(juce::FontOptions("Arial", 9.0f, juce::Font::bold)));
+    reverseLabel.setFont(juce::FontOptions("Arial", 9.0f, juce::Font::bold));
     addAndMakeVisible(reverseLabel);
 
     // Start/Stop toggle (record player style)
@@ -335,7 +335,7 @@ SkaldEditor::SkaldEditor (SkaldProcessor& p)
     startStopLabel.setText("MOTOR", juce::dontSendNotification);
     startStopLabel.setJustificationType(juce::Justification::centred);
     startStopLabel.setColour(juce::Label::textColourId, juce::Colour(0xff888888));
-    startStopLabel.setFont(juce::Font(juce::FontOptions("Arial", 9.0f, juce::Font::bold)));
+    startStopLabel.setFont(juce::FontOptions("Arial", 9.0f, juce::Font::bold));
     addAndMakeVisible(startStopLabel);
 
     // Probability knob
@@ -350,7 +350,7 @@ SkaldEditor::SkaldEditor (SkaldProcessor& p)
     probabilityLabel.setText("PROB", juce::dontSendNotification);
     probabilityLabel.setJustificationType(juce::Justification::centred);
     probabilityLabel.setColour(juce::Label::textColourId, juce::Colour(0xff888888));
-    probabilityLabel.setFont(juce::Font(juce::FontOptions("Arial", 9.0f, juce::Font::bold)));
+    probabilityLabel.setFont(juce::FontOptions("Arial", 9.0f, juce::Font::bold));
     addAndMakeVisible(probabilityLabel);
 
     // Velocity variation knob
@@ -365,7 +365,7 @@ SkaldEditor::SkaldEditor (SkaldProcessor& p)
     velocityVariationLabel.setText("VVAR", juce::dontSendNotification);
     velocityVariationLabel.setJustificationType(juce::Justification::centred);
     velocityVariationLabel.setColour(juce::Label::textColourId, juce::Colour(0xff888888));
-    velocityVariationLabel.setFont(juce::Font(juce::FontOptions("Arial", 9.0f, juce::Font::bold)));
+    velocityVariationLabel.setFont(juce::FontOptions("Arial", 9.0f, juce::Font::bold));
     addAndMakeVisible(velocityVariationLabel);
 
     // Swing knob
@@ -380,7 +380,7 @@ SkaldEditor::SkaldEditor (SkaldProcessor& p)
     swingLabel.setText("SWING", juce::dontSendNotification);
     swingLabel.setJustificationType(juce::Justification::centred);
     swingLabel.setColour(juce::Label::textColourId, juce::Colour(0xff888888));
-    swingLabel.setFont(juce::Font(juce::FontOptions("Arial", 9.0f, juce::Font::bold)));
+    swingLabel.setFont(juce::FontOptions("Arial", 9.0f, juce::Font::bold));
     addAndMakeVisible(swingLabel);
 
     // Save pattern button (green for safe save action)
@@ -406,7 +406,7 @@ SkaldEditor::SkaldEditor (SkaldProcessor& p)
     saveLabel.setText("SAVE", juce::dontSendNotification);
     saveLabel.setJustificationType(juce::Justification::centred);
     saveLabel.setColour(juce::Label::textColourId, juce::Colour(0xff888888));
-    saveLabel.setFont(juce::Font(juce::FontOptions("Arial", 9.0f, juce::Font::bold)));
+    saveLabel.setFont(juce::FontOptions("Arial", 9.0f, juce::Font::bold));
     addAndMakeVisible(saveLabel);
 
     // Load pattern button (blue for loading action)
@@ -444,7 +444,7 @@ SkaldEditor::SkaldEditor (SkaldProcessor& p)
     loadLabel.setText("LOAD", juce::dontSendNotification);
     loadLabel.setJustificationType(juce::Justification::centred);
     loadLabel.setColour(juce::Label::textColourId, juce::Colour(0xff888888));
-    loadLabel.setFont(juce::Font(juce::FontOptions("Arial", 9.0f, juce::Font::bold)));
+    loadLabel.setFont(juce::FontOptions("Arial", 9.0f, juce::Font::bold));
     addAndMakeVisible(loadLabel);
 
     // About button (shows help/about screen)
@@ -463,7 +463,7 @@ SkaldEditor::SkaldEditor (SkaldProcessor& p)
     aboutLabel.setText("HELP", juce::dontSendNotification);
     aboutLabel.setJustificationType(juce::Justification::centred);
     aboutLabel.setColour(juce::Label::textColourId, juce::Colour(0xff888888));
-    aboutLabel.setFont(juce::Font(juce::FontOptions("Arial", 9.0f, juce::Font::bold)));
+    aboutLabel.setFont(juce::FontOptions("Arial", 9.0f, juce::Font::bold));
     addAndMakeVisible(aboutLabel);
 
     // Back button (for help screen)
@@ -484,7 +484,7 @@ SkaldEditor::SkaldEditor (SkaldProcessor& p)
     backLabel.setText("BACK", juce::dontSendNotification);
     backLabel.setJustificationType(juce::Justification::centred);
     backLabel.setColour(juce::Label::textColourId, juce::Colour(0xff888888));
-    backLabel.setFont(juce::Font(juce::FontOptions("Arial", 9.0f, juce::Font::bold)));
+    backLabel.setFont(juce::FontOptions("Arial", 9.0f, juce::Font::bold));
     addAndMakeVisible(backLabel);
     backLabel.setVisible(false);  // Hidden by default
 
@@ -494,7 +494,7 @@ SkaldEditor::SkaldEditor (SkaldProcessor& p)
     scaleDisplay.setColour(juce::Label::backgroundColourId, juce::Colour(0xff0a0a0a));
     scaleDisplay.setColour(juce::Label::textColourId, juce::Colour(0xff00d9ff));
     scaleDisplay.setColour(juce::Label::outlineColourId, juce::Colour(0xff1a3a3a));
-    scaleDisplay.setFont(juce::Font(juce::FontOptions("Courier New", 14.0f, juce::Font::bold)));
+    scaleDisplay.setFont(juce::FontOptions("Courier New", 14.0f, juce::Font::bold));
     addAndMakeVisible(scaleDisplay);
 
     // Scale tap button (small, no text)
@@ -516,7 +516,7 @@ SkaldEditor::SkaldEditor (SkaldProcessor& p)
     scaleLabel.setText("SCALE", juce::dontSendNotification);
     scaleLabel.setJustificationType(juce::Justification::centred);
     scaleLabel.setColour(juce::Label::textColourId, juce::Colour(0xff888888));
-    scaleLabel.setFont(juce::Font(juce::FontOptions("Arial", 9.0f, juce::Font::bold)));
+    scaleLabel.setFont(juce::FontOptions("Arial", 9.0f, juce::Font::bold));
     addAndMakeVisible(scaleLabel);
 
     // Key display (LED screen style - cyan to match turntable)
@@ -525,7 +525,7 @@ SkaldEditor::SkaldEditor (SkaldProcessor& p)
     keyDisplay.setColour(juce::Label::backgroundColourId, juce::Colour(0xff0a0a0a));
     keyDisplay.setColour(juce::Label::textColourId, juce::Colour(0xff00d9ff));
     keyDisplay.setColour(juce::Label::outlineColourId, juce::Colour(0xff1a3a3a));
-    keyDisplay.setFont(juce::Font(juce::FontOptions("Courier New", 14.0f, juce::Font::bold)));
+    keyDisplay.setFont(juce::FontOptions("Courier New", 14.0f, juce::Font::bold));
     addAndMakeVisible(keyDisplay);
 
     // Key tap button (small, no text)
@@ -546,7 +546,7 @@ SkaldEditor::SkaldEditor (SkaldProcessor& p)
     keyLabel.setText("KEY", juce::dontSendNotification);
     keyLabel.setJustificationType(juce::Justification::centred);
     keyLabel.setColour(juce::Label::textColourId, juce::Colour(0xff888888));
-    keyLabel.setFont(juce::Font(juce::FontOptions("Arial", 9.0f, juce::Font::bold)));
+    keyLabel.setFont(juce::FontOptions("Arial", 9.0f, juce::Font::bold));
     addAndMakeVisible(keyLabel);
 
     // Octave display (LED screen style - cyan to match turntable)
@@ -555,7 +555,7 @@ SkaldEditor::SkaldEditor (SkaldProcessor& p)
     octaveDisplay.setColour(juce::Label::backgroundColourId, juce::Colour(0xff0a0a0a));
     octaveDisplay.setColour(juce::Label::textColourId, juce::Colour(0xff00d9ff));
     octaveDisplay.setColour(juce::Label::outlineColourId, juce::Colour(0xff1a3a3a));
-    octaveDisplay.setFont(juce::Font(juce::FontOptions("Courier New", 14.0f, juce::Font::bold)));
+    octaveDisplay.setFont(juce::FontOptions("Courier New", 14.0f, juce::Font::bold));
     addAndMakeVisible(octaveDisplay);
 
     // Octave tap button (small, no text)
@@ -576,7 +576,7 @@ SkaldEditor::SkaldEditor (SkaldProcessor& p)
     octaveLabel.setText("OCT", juce::dontSendNotification);
     octaveLabel.setJustificationType(juce::Justification::centred);
     octaveLabel.setColour(juce::Label::textColourId, juce::Colour(0xff888888));
-    octaveLabel.setFont(juce::Font(juce::FontOptions("Arial", 9.0f, juce::Font::bold)));
+    octaveLabel.setFont(juce::FontOptions("Arial", 9.0f, juce::Font::bold));
     addAndMakeVisible(octaveLabel);
 
     // Load Viking logo for help/about screen
@@ -588,19 +588,19 @@ SkaldEditor::SkaldEditor (SkaldProcessor& p)
     auto headerFontData = juce::Typeface::createSystemTypefaceFor(BinaryData::header_ttf,
                                                                    BinaryData::header_ttfSize);
     if (headerFontData)
-        csArthemisFont = juce::Font(juce::FontOptions(headerFontData));
+        csArthemisFont = juce::FontOptions(headerFontData);
 
     // UnifrakturMaguntia - SIL OFL 1.1
     auto subHeaderFontData = juce::Typeface::createSystemTypefaceFor(BinaryData::subheader_ttf,
                                                                       BinaryData::subheader_ttfSize);
     if (subHeaderFontData)
-        distropiaxFont = juce::Font(juce::FontOptions(subHeaderFontData));
+        distropiaxFont = juce::FontOptions(subHeaderFontData);
 
     // IM Fell English - SIL OFL 1.1
     auto paragraphFontData = juce::Typeface::createSystemTypefaceFor(BinaryData::paragraph_ttf,
                                                                       BinaryData::paragraph_ttfSize);
     if (paragraphFontData)
-        wonderworldFont = juce::Font(juce::FontOptions(paragraphFontData));
+        wonderworldFont = juce::FontOptions(paragraphFontData);
 
     // Load wallpaper background texture
     wallpaperImage = juce::ImageCache::getFromMemory(BinaryData::wallpaper_jpg,
@@ -1063,7 +1063,7 @@ void SkaldEditor::paint (juce::Graphics& g)
         if (selectedDotIndex == static_cast<int>(i))
         {
             g.setColour(juce::Colour(0xff00d9ff));
-            g.setFont(juce::Font(juce::FontOptions("Arial", 10.0f, juce::Font::bold)));
+            g.setFont(juce::FontOptions("Arial", 10.0f, juce::Font::bold));
             int midiNote = audioProcessor.ringToMidiNote(ringIndex);
             juce::String noteText = midiNoteToString(midiNote);
             g.drawText(noteText,
@@ -1118,7 +1118,7 @@ void SkaldEditor::paintHelpScreen(juce::Graphics& g)
     if (csArthemisFont.getTypefaceName().isNotEmpty())
         g.setFont(juce::Font(juce::FontOptions(csArthemisFont.getTypefacePtr()).withHeight(72.0f)));
     else
-        g.setFont(juce::Font(juce::FontOptions("Arial", 64.0f, juce::Font::bold)));
+        g.setFont(juce::FontOptions("Arial", 64.0f, juce::Font::bold));
     g.drawText("SKALD", 0, 10 + logoHeight, getWidth(), 70,
                juce::Justification::centred);
 
@@ -1127,7 +1127,7 @@ void SkaldEditor::paintHelpScreen(juce::Graphics& g)
     if (wonderworldFont.getTypefaceName().isNotEmpty())
         g.setFont(juce::Font(juce::FontOptions(wonderworldFont.getTypefacePtr()).withHeight(16.0f)));
     else
-        g.setFont(juce::Font(juce::FontOptions("Arial", 16.0f, juce::Font::plain)));
+        g.setFont(juce::FontOptions("Arial", 16.0f, juce::Font::plain));
     g.drawText("Viking MIDI Warrior", 0, 10 + logoHeight + 72, getWidth(), 22,
                juce::Justification::centred);
 
@@ -1137,7 +1137,7 @@ void SkaldEditor::paintHelpScreen(juce::Graphics& g)
     if (wonderworldFont.getTypefaceName().isNotEmpty())
         g.setFont(juce::Font(juce::FontOptions(wonderworldFont.getTypefacePtr()).withHeight(15.0f)));
     else
-        g.setFont(juce::Font(juce::FontOptions("Arial", 15.0f, juce::Font::plain)));
+        g.setFont(juce::FontOptions("Arial", 15.0f, juce::Font::plain));
 
     juce::String description =
         "Behold Skald, a warrior's weapon for forging rhythmic sagas! Born from the ancient "
@@ -1158,7 +1158,7 @@ void SkaldEditor::paintHelpScreen(juce::Graphics& g)
     if (distropiaxFont.getTypefaceName().isNotEmpty())
         g.setFont(juce::Font(juce::FontOptions(distropiaxFont.getTypefacePtr()).withHeight(40.0f)));
     else
-        g.setFont(juce::Font(juce::FontOptions("Arial", 36.0f, juce::Font::bold)));
+        g.setFont(juce::FontOptions("Arial", 36.0f, juce::Font::bold));
     g.drawText("How To", centerX, textY, contentWidth, 45,
                juce::Justification::centredLeft);
 
@@ -1167,7 +1167,7 @@ void SkaldEditor::paintHelpScreen(juce::Graphics& g)
     if (wonderworldFont.getTypefaceName().isNotEmpty())
         g.setFont(juce::Font(juce::FontOptions(wonderworldFont.getTypefacePtr()).withHeight(13.0f)));
     else
-        g.setFont(juce::Font(juce::FontOptions("Arial", 13.0f, juce::Font::plain)));
+        g.setFont(juce::FontOptions("Arial", 13.0f, juce::Font::plain));
     const int bulletSpacing = 18;  // Tighter line spacing
 
     g.drawText("- Insert Skald on its own MIDI track (leave track empty, no instruments)",
@@ -1191,7 +1191,7 @@ void SkaldEditor::paintHelpScreen(juce::Graphics& g)
     if (distropiaxFont.getTypefaceName().isNotEmpty())
         g.setFont(juce::Font(juce::FontOptions(distropiaxFont.getTypefacePtr()).withHeight(40.0f)));
     else
-        g.setFont(juce::Font(juce::FontOptions("Arial", 36.0f, juce::Font::bold)));
+        g.setFont(juce::FontOptions("Arial", 36.0f, juce::Font::bold));
     g.drawText("Features", centerX, textY, contentWidth, 45,
                juce::Justification::centredLeft);
 
@@ -1200,7 +1200,7 @@ void SkaldEditor::paintHelpScreen(juce::Graphics& g)
     if (wonderworldFont.getTypefaceName().isNotEmpty())
         g.setFont(juce::Font(juce::FontOptions(wonderworldFont.getTypefacePtr()).withHeight(13.0f)));
     else
-        g.setFont(juce::Font(juce::FontOptions("Arial", 13.0f, juce::Font::plain)));
+        g.setFont(juce::FontOptions("Arial", 13.0f, juce::Font::plain));
 
     // Feature bullets - Single column
     g.drawText("-  MOTOR ON/OFF: Toggle between motorized playback and manual scrub mode",
@@ -1256,7 +1256,7 @@ void SkaldEditor::paintHelpScreen(juce::Graphics& g)
 
     // Version/Credits at bottom
     g.setColour(juce::Colour(0xff666666));
-    g.setFont(juce::Font(juce::FontOptions("Arial", 11.0f, juce::Font::plain)));
+    g.setFont(juce::FontOptions("Arial", 11.0f, juce::Font::plain));
     g.drawText("Beowulf Audio | v1.0.0", 0, getHeight() - 30,
                getWidth(), 20, juce::Justification::centred);
 }
