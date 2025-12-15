@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="images/viking_head.png" alt="Skald Logo" width="200"/>
+<img src="images/viking_full.png" alt="Skald Logo" width="300"/>
 
 # Skald
 
@@ -252,6 +252,8 @@ See [LICENSE](LICENSE) for full details.
 [Documentation](docs/) • [Report Bug](https://github.com/josephvolmer/skald/issues) • [Request Feature](https://github.com/josephvolmer/skald/issues)
 
 ---
+
+<img src="images/viking_head.png" alt="Skald" width="100"/>
 
 *Mechanical rhythm meets modern production.*
 

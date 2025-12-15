@@ -20,14 +20,14 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
-      with:
-        submodules: recursive
 
-    - name: Cache JUCE
-      uses: actions/cache@v4
-      with:
-        path: JUCE
-        key: juce-${{ runner.os }}-${{ hashFiles('**/CMakeLists.txt') }}
+    - name: Setup JUCE
+      run: |
+        cd ..
+        if [ ! -d "JUCE" ]; then
+          git clone --depth 1 --branch 7.0.12 https://github.com/juce-framework/JUCE.git
+        fi
+      shell: bash
 
     - name: Install dependencies (macOS)
       if: runner.os == 'macOS'
