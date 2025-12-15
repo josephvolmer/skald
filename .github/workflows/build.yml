@@ -42,6 +42,14 @@ jobs:
     - name: Build with Make
       run: make JOBS=4
 
+    - name: Code sign (macOS)
+      if: runner.os == 'macOS'
+      run: |
+        # Ad-hoc code signing for macOS (allows loading without Gatekeeper warnings)
+        codesign --force --deep --sign - build/Skald_artefacts/Release/VST3/Skald.vst3
+        codesign --force --deep --sign - build/Skald_artefacts/Release/AU/Skald.component
+        echo "✅ Plugins ad-hoc signed for macOS"
+
     - name: Prepare artifacts (Windows)
       if: runner.os == 'Windows'
       run: |
@@ -53,11 +61,12 @@ jobs:
       run: |
         mkdir -p artifact
         cp -r build/Skald_artefacts/Release/VST3/Skald.vst3 artifact/
+        cp -r build/Skald_artefacts/Release/AU/Skald.component artifact/
 
-    - name: Upload VST3 artifacts
+    - name: Upload artifacts
       uses: actions/upload-artifact@v4
       with:
-        name: Skald-VST3-${{ runner.os }}
+        name: Skald-${{ runner.os }}
         path: artifact/
 
   release:
@@ -73,33 +82,48 @@ jobs:
     - name: Download Windows artifact
       uses: actions/download-artifact@v4
       with:
-        name: Skald-VST3-Windows
-        path: windows-vst3
+        name: Skald-Windows
+        path: windows-plugins
 
     - name: Download macOS artifact
       uses: actions/download-artifact@v4
       with:
-        name: Skald-VST3-macOS
-        path: macos-vst3
+        name: Skald-macOS
+        path: macos-plugins
 
     - name: Create release packages
       run: |
-        # Windows package
-        cd windows-vst3
-        zip -r ../Skald-VST3-Windows.zip .
+        # Windows package (VST3 only)
+        cd windows-plugins
+        zip -r ../Skald-Windows.zip .
         cd ..
 
-        # macOS package
-        cd macos-vst3
-        zip -r ../Skald-VST3-macOS.zip .
+        # macOS package (VST3 + AU)
+        cd macos-plugins
+        zip -r ../Skald-macOS.zip .
         cd ..
 
     - name: Create Release
       uses: softprops/action-gh-release@v1
       with:
         files: |
-          Skald-VST3-Windows.zip
-          Skald-VST3-macOS.zip
+          Skald-Windows.zip
+          Skald-macOS.zip
+        body: |
+          ## Skald v${{ github.ref_name }}
+
+          Download the appropriate version for your platform:
+
+          ### 🪟 Windows
+          - **Skald-Windows.zip** - VST3 plugin
+          - Extract to: `C:\Program Files\Common Files\VST3\`
+
+          ### 🍎 macOS
+          - **Skald-macOS.zip** - VST3 + Audio Unit plugins (code-signed)
+          - Extract VST3 to: `~/Library/Audio/Plug-Ins/VST3/`
+          - Extract AU to: `~/Library/Audio/Plug-Ins/Components/`
+
+          Both plugins are ad-hoc signed and ready to use without security warnings.
         draft: false
         prerelease: false
       env:
