@@ -1,137 +1,118 @@
-# Skald - Viking MIDI Warrior
+<div align="center">
+
+<img src="images/viking_head.png" alt="Skald Logo" width="200"/>
+
+# Skald
+
+### Viking MIDI Warrior
 
 **A generative MIDI sequencer inspired by mechanical rhythm machines**
 
-![Version](https://img.shields.io/badge/version-1.0.0-orange)
-![License](https://img.shields.io/badge/license-GPL--3.0-blue)
-![Platform](https://img.shields.io/badge/platform-macOS%20%7C%20Windows%20%7C%20Linux-lightgrey)
+[![Version](https://img.shields.io/badge/version-1.0.0-orange)](https://github.com/josephvolmer/skald/releases)
+[![License](https://img.shields.io/badge/license-GPL--3.0-blue)](LICENSE)
+[![Platform](https://img.shields.io/badge/platform-macOS%20%7C%20Windows%20%7C%20Linux-lightgrey)](#installation)
+
+[Features](#features) • [Installation](#installation) • [Quick Start](#quick-start) • [Documentation](docs/)
+
+</div>
 
 ---
 
 ## Overview
 
-**Skald** is a generative MIDI sequencer inspired by Quintron's Drum Buddy and Playtonica MIDI Color Sequencer Orbita - mechanical rhythm machines that merge analog charm with hands-on performance.
+**Skald** is a generative MIDI sequencer inspired by **Quintron's Drum Buddy** and **Playtonica's MIDI Color Sequencer Orbita** - mechanical rhythm machines that merge analog charm with hands-on performance.
 
 Place notes on concentric rings, scratch like vinyl, and explore generative patterns with motor control, probability, swing, and velocity variation.
 
-### Key Features
-
-- 🎯 **Intuitive Turntable Interface** - Visual feedback with rotating sensor arm
-- 🎵 **Musical Scales** - Major, Minor, Pentatonic, Blues, Dorian, and more
-- 🎲 **Generative Controls** - Probability, velocity variation, and swing
-- 🎛️ **Performance Ready** - Scratching, motor control, reverse playback
-- 💾 **Save/Load Patterns** - Build your own pattern library
-- 🎨 **Multiple Rings** - 12 concentric rings for melodic sequencing
-- ⚡ **BPM Sync** - Locks to your DAW's tempo
-
----
-
-## Installation
-
-### Automatic Installation (macOS)
-
-When you build Skald, it's automatically installed to:
-
-- **VST3**: `~/Library/Audio/Plug-Ins/VST3/Skald.vst3`
-- **AU**: `~/Library/Audio/Plug-Ins/Components/Skald.component`
-- **Standalone**: `build/Skald_artefacts/Release/Standalone/Skald.app`
-
-### Building from Source
-
-```bash
-# Clone or navigate to project
-cd Skald
-
-# Configure CMake (first time only)
-cmake -B build -DCMAKE_BUILD_TYPE=Release
-
-# Build and install
-cmake --build build --config Release
-```
-
-The plugin will automatically install to your system plugin folders.
-
----
-
-## Quick Start
-
-### Setup in Your DAW
-
-**IMPORTANT**: Skald is a MIDI generator, not an instrument!
-
-1. Insert Skald on its own MIDI track (leave empty, no instruments)
-2. Create a separate MIDI track with your synth/instrument
-3. Route MIDI from Skald's track to your synth track
-4. Add dots and generate patterns!
-
-See [QUICK_START.md](QUICK_START.md) for detailed DAW-specific instructions.
+<div align="center">
+<img src="images/skald1-main-view.png" alt="Skald Main Interface" width="700"/>
+</div>
 
 ---
 
 ## Features
 
-### Turntable Controls
+### 🎯 **Intuitive Turntable Interface**
+- Visual rotating sensor arm with real-time feedback
+- Double-click to add/remove notes
+- Drag dots to adjust timing and pitch
+- Click outer ring for vinyl-style scratching
 
-- **Double-click** to add/remove dots
-- **Drag dots** to change timing and pitch
-- **Click outer ring** to scratch (vinyl-style control)
-- **Motor toggle** for motorized vs manual playback
-- **Reverse** for backward playback
+### 🎵 **Musical Intelligence**
+- **13 Musical Scales**: Major, Minor, Pentatonic, Blues, Dorian, Phrygian, Lydian, Mixolydian, Locrian, Harmonic Minor, Melodic Minor, and Chromatic
+- **12 Root Notes**: Complete chromatic key selection
+- **±2 Octave Range**: Expand your melodic possibilities
+- **Speed Control**: 0.25x to 4x tempo divisions
 
-### Musical Parameters
+### 🎲 **Generative Power**
+- **Probability (0-100%)**: Create evolving, unpredictable patterns
+- **Swing (0-100%)**: Add groove and shuffle (50% = straight, 66% = triplet feel)
+- **Velocity Variation (0-100%)**: Humanize performances with dynamic randomization
+- **Velocity Control (1-127)**: Set global note dynamics
+- **Gate Time**: Precise note length control in milliseconds
 
-- **SCALE**: 13 musical scales (Major, Minor, Pentatonic, Blues, etc.)
-- **KEY**: All 12 chromatic root notes
-- **OCTAVE**: ±2 octave range
-- **SPEED/DIV**: 0.25x to 4x tempo divisions
+### 🎛️ **Performance Ready**
+- **Motor Control**: Toggle between motorized and manual playback
+- **Reverse Playback**: Flip patterns backward for creative variations
+- **Scratching**: Real-time vinyl-style manipulation
+- **BPM Sync**: Automatically locks to your DAW's tempo
 
-### Expression Controls
-
-- **PROBABILITY (0-100%)**: Random note triggering
-- **SWING (0-100%)**: Groove timing (50% = straight, 66% = triplet)
-- **VELOCITY (1-127)**: Global note dynamics
-- **VEL VARIATION (0-100%)**: Humanize with random velocity
-- **GATE TIME**: Note length in milliseconds
-
-### Pattern Management
-
-- **RANDOMIZE**: Generate instant creative patterns
-- **SAVE**: Store your favorite patterns
-- **LOAD**: Recall saved patterns
-- **CLEAR**: Remove all dots
-
----
-
-## Interface
-
-```
-┌─────────────────────────────────────────────────────────────┐
-│  SCALE  KEY   DIV  OCT     [PROB] [SWING] [VEL] [VVAR] [GATE]│
-│  Penta   C    1x   0                                         │
-│                                                               │
-│                         ╱│╲                                  │
-│                        ╱ │ ╲                                 │
-│                       ╱  │  ╲                                │
-│                      ╱ ● │   ╲    ← Dots on rings           │
-│                     │    │  ●  │                             │
-│                     │  ● │     │                             │
-│                      ╲   │  ● ╱                              │
-│                       ╲  │  ╱                                │
-│                        ╲ │ ╱                                 │
-│                         ╲│╱                                  │
-│                                                               │
-│  [REV] [MOTOR]        [ADD] [RAND] [CLR] [SAVE] [LOAD] [HELP]│
-└─────────────────────────────────────────────────────────────┘
-```
+### 💾 **Pattern Management**
+- **Randomize**: Instantly generate creative starting points
+- **Save/Load**: Build and recall your pattern library
+- **12 Rings**: Create complex melodic sequences
 
 ---
 
-## Technical Specifications
+## Installation
 
-### Plugin Formats
-- **VST3** (all platforms)
-- **Audio Unit** (macOS)
-- **Standalone** (all platforms)
+### Quick Install (macOS)
+
+Building Skald automatically installs to your system:
+
+```bash
+# Clone the repository
+git clone https://github.com/josephvolmer/skald.git
+cd skald
+
+# Build and install
+make
+```
+
+**Installed locations:**
+- **VST3**: `~/Library/Audio/Plug-Ins/VST3/Skald.vst3`
+- **AU**: `~/Library/Audio/Plug-Ins/Components/Skald.component`
+- **Standalone**: `build/Skald_artefacts/Release/Standalone/Skald.app`
+
+### Platform-Specific Builds
+
+<details>
+<summary><b>Windows</b></summary>
+
+```bash
+# Requires Visual Studio 2019 or later
+cmake -B build -G "Visual Studio 16 2019"
+cmake --build build --config Release
+```
+
+VST3 output: `build/Skald_artefacts/Release/VST3/Skald.vst3`
+</details>
+
+<details>
+<summary><b>Linux</b></summary>
+
+```bash
+# Install dependencies
+sudo apt-get install build-essential libasound2-dev libx11-dev \
+  libxrandr-dev libxinerama-dev libxcursor-dev libfreetype6-dev
+
+# Build
+cmake -B build -DCMAKE_BUILD_TYPE=Release
+cmake --build build --config Release
+```
+
+VST3 output: `build/Skald_artefacts/Release/VST3/Skald.vst3`
+</details>
 
 ### Requirements
 - **JUCE Framework** 7.x or later
@@ -139,153 +120,141 @@ See [QUICK_START.md](QUICK_START.md) for detailed DAW-specific instructions.
 - **C++17** compatible compiler
 - **macOS** 10.13+, **Windows** 10+, or **Linux** (Ubuntu 20.04+)
 
-### Audio/MIDI
-- **MIDI Output**: Generates MIDI notes (no audio processing)
-- **Channels**: Supports MIDI channels 1-16 (currently channel 1)
-- **BPM Sync**: Automatically syncs to host DAW tempo
-- **Note Range**: Configurable via scales and octave shift
+---
+
+## Quick Start
+
+### DAW Setup
+
+> **⚠️ IMPORTANT**: Skald is a **MIDI generator**, not an instrument!
+
+<div align="center">
+<img src="images/skald3-daw-setup.png" alt="DAW Setup" width="700"/>
+</div>
+
+**Setup Steps:**
+1. Insert **Skald** on its own MIDI track (no instruments)
+2. Create a **separate track** with your synth/instrument
+3. **Route MIDI** from Skald's track → your synth track
+4. Add dots and start creating!
+
+📖 See [QUICK_START.md](docs/QUICK_START.md) for detailed DAW-specific instructions (Ableton, Logic, FL Studio, etc.)
+
+### Basic Workflow
+
+1. **Add Notes**: Double-click on the turntable to place dots
+2. **Adjust Timing**: Drag dots around the circle to change when they trigger
+3. **Change Pitch**: Drag dots between rings to change note pitch
+4. **Experiment**: Use Randomize for instant inspiration
+5. **Fine-tune**: Adjust probability, swing, and velocity for variation
+6. **Save**: Store your favorite patterns
 
 ---
 
-## Project Structure
+## Technical Specifications
 
-```
-Skald/
-├── CMakeLists.txt              # Build configuration
-├── Source/
-│   ├── PluginProcessor.h       # MIDI generation engine
-│   ├── PluginProcessor.cpp     # Pattern playback & timing
-│   ├── PluginEditor.h          # GUI interface
-│   └── PluginEditor.cpp        # Turntable visualization
-├── viking_full.png             # Viking warrior graphic
-├── viking_head.png             # Viking head icon
-├── switch_toggle.png           # Toggle switch sprite
-├── knob_simplegray.png         # Knob sprite
-├── wallpaper.jpg               # Background texture
-├── README.md                   # This file
-└── QUICK_START.md              # Quick start guide
-```
+### Plugin Formats
+- **VST3** (Windows, macOS, Linux)
+- **Audio Unit** (macOS only)
+- **Standalone** (all platforms)
+
+### MIDI Capabilities
+- **Output Only**: Generates MIDI notes (no audio processing)
+- **Channel Support**: MIDI channels 1-16 (currently channel 1)
+- **Host Sync**: Automatically syncs to DAW tempo
+- **Note Range**: Configurable via scales and octave shift
 
 ---
 
 ## Development
 
-### Modifying the Code
+### Project Structure
 
-1. Edit files in `Source/`
-2. Rebuild: `cmake --build build --config Release`
-3. Plugin automatically reinstalls
-
-### Key Files
-
-- **PluginProcessor.cpp**: Pattern logic, MIDI generation, timing
-- **PluginEditor.cpp**: UI, graphics, user interaction
-- **PluginProcessor.h**: Scale definitions, parameter ranges
-
-### Adding Features
-
-Want to extend Skald? Some ideas:
-
-- Multiple MIDI channels per dot (color-coded)
-- Euclidean rhythm generator
-- MIDI CC modulation per dot
-- Multiple concurrent turntables
-- Export patterns as MIDI files
-- Preset browser
-
----
-
-## Cross-Platform Building
-
-### Windows
-```bash
-# Requires Visual Studio 2019 or later
-cmake -B build -G "Visual Studio 16 2019"
-cmake --build build --config Release
+```
+Skald/
+├── CMakeLists.txt              # Build configuration
+├── Makefile                    # Cross-platform build helper
+├── Source/
+│   ├── PluginProcessor.h       # MIDI generation engine
+│   ├── PluginProcessor.cpp     # Pattern playback & timing
+│   ├── PluginEditor.h          # GUI interface
+│   └── PluginEditor.cpp        # Turntable visualization
+├── images/                     # Graphics and sprites
+├── fonts/                      # Custom fonts (SIL OFL licensed)
+├── docs/                       # Documentation
+└── .github/workflows/          # CI/CD automation
 ```
 
-### Linux
+### Building from Source
+
 ```bash
-# Requires build essentials
-sudo apt-get install build-essential libasound2-dev libx11-dev libxrandr-dev libxinerama-dev libxcursor-dev libfreetype6-dev
+# Clone with submodules
+git clone --recursive https://github.com/josephvolmer/skald.git
+cd skald
+
+# Build with Makefile
+make                    # Build (default: Release)
+make install            # Build and install to system
+make clean              # Remove build directory
+make help               # Show all targets
+
+# Or use CMake directly
 cmake -B build -DCMAKE_BUILD_TYPE=Release
-cmake --build build --config Release
+cmake --build build --config Release -j4
 ```
+
+### Contributing
+
+Want to extend Skald? Ideas we're considering:
+
+- [ ] Multiple MIDI channels per dot (color-coded)
+- [ ] Per-dot velocity and gate time
+- [ ] Euclidean rhythm generator
+- [ ] MIDI CC modulation per dot
+- [ ] Pattern preset browser
+- [ ] MIDI file export
+- [ ] Multiple concurrent turntables
+- [ ] Tempo-independent mode
 
 ---
 
 ## License
 
-This project is licensed under **GPL-3.0** due to JUCE framework licensing.
+This project is licensed under **GPL-3.0** due to JUCE framework licensing requirements.
 
 ### JUCE Licensing
 - **Open Source (GPL)**: Free to use and distribute under GPL-3.0
-- **Commercial**: Requires JUCE commercial license (~$40/month) for closed-source distribution
+- **Commercial**: Requires [JUCE commercial license](https://juce.com/juce-licensing) (~$40/month) for closed-source distribution
 
-See [JUCE Licensing](https://juce.com/juce-licensing) for details.
+See [LICENSE](LICENSE) for full details.
 
 ---
 
 ## Credits
 
-**Skald** is built by **Beowulf Audio**
+<div align="center">
+
+**Built with ⚔️ by [Beowulf Audio](https://github.com/josephvolmer)**
 
 ### Inspiration
-- **Quintron's Drum Buddy** - Mechanical light-based drum machine
-- **Playtonica MIDI Color Sequencer Orbita** - Visual color sequencer
+**Quintron's Drum Buddy** • **Playtonica MIDI Color Sequencer Orbita**
 
 ### Built With
-- [JUCE Framework](https://juce.com) - Audio plugin framework
-- [CMake](https://cmake.org) - Build system
-- Viking graphics by Beowulf Audio
+[JUCE Framework](https://juce.com) • [CMake](https://cmake.org)
 
 ---
 
-## Support & Community
+### Support & Community
 
-### Documentation
-- [Quick Start Guide](QUICK_START.md) - Get started in minutes
-- [In-app Help](QUICK_START.md#interface-overview) - Press HELP button in plugin
+[![GitHub Issues](https://img.shields.io/github/issues/josephvolmer/skald)](https://github.com/josephvolmer/skald/issues)
+[![GitHub Stars](https://img.shields.io/github/stars/josephvolmer/skald?style=social)](https://github.com/josephvolmer/skald)
 
-### Troubleshooting
-- Plugin not showing? Rescan plugins in your DAW
-- No sound? Check MIDI routing (Skald doesn't make sound, it generates MIDI)
-- Notes not triggering? Check Probability knob (set to 100% for testing)
+[Documentation](docs/) • [Report Bug](https://github.com/josephvolmer/skald/issues) • [Request Feature](https://github.com/josephvolmer/skald/issues)
 
 ---
-
-## Changelog
-
-### v1.0.0 (2025-01-14)
-- Initial release
-- 13 musical scales with chromatic key selection
-- ±2 octave range
-- Probability, swing, and velocity variation
-- Motor control and reverse playback
-- Scratching support
-- Save/Load pattern functionality
-- Randomize pattern generator
-- Clean, professional UI with Viking warrior branding
-
----
-
-## Roadmap
-
-Future enhancements being considered:
-
-- [ ] Multiple MIDI channels (color-coded dots)
-- [ ] Per-dot velocity and gate time
-- [ ] Euclidean rhythm mode
-- [ ] MIDI CC output for modulation
-- [ ] Pattern preset browser
-- [ ] MIDI file export
-- [ ] Multiple turntables
-- [ ] Tempo-independent mode
-
----
-
-**Built with ⚔️ by Beowulf Audio**
 
 *Mechanical rhythm meets modern production.*
 
 🎵 **Make something unique!** 🎵
+
+</div>
